@@ -25,7 +25,7 @@ router.post('/saveskedvisit', checkApiKey, async (req, res) => {
       `call  ${schema}.insert_skedvisit($1, $2, $3, $4)`,
       [name, visitdate, visittime, idnumber]
     );
-    res.status(201).json({ message: 'Skedvisit saved successfully.'});
+    res.status(201).json({ message: 'Save Skedvisit saved successfully.'});
   } catch (err) {
     console.error('Database insert error:', err);
     res.status(500).json({ error: 'Internal server error' });
