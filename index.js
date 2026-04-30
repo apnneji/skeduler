@@ -12,7 +12,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Define an array of allowed origins
-const allowedOrigins = ['https://nregstudent.onrender.com', 'http://localhost:3000','https://eschoolmgmt.vercel.app'];
+const allowedOrigins = ['https://nregstudent.onrender.com', 'http://localhost:3000','https://eschoolmgmt.vercel.app', 'http://localhost:5173'];
 
 // Middleware to check for the API key
 
