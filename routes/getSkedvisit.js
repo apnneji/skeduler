@@ -9,7 +9,15 @@ const { checkApiKey } = require('../apikeyAut');
 // GET /skedvisit - Retrieve all records from skeduler.skedvisit
 router.get('/', checkApiKey, async (req, res) => {
   try {
-    const result = await pool.query(`SELECT * FROM ${schema}.skedvisit`);
+    const visitdate = req.query.visitdate; // Get visitdate from query parameters
+
+    if (!visitdate) {
+      return res.status(400).json({ error: 'visitdate query parameter is required' });
+    }
+
+    const result = await pool.query(`select visitid, name, to_char(visitdate, 'DD-MM-YYYY') visitdate, 
+      to_char(visittime::TIME, 'HH24:MI') visittime, timestamp as ttimestamp 
+      FROM ${schema}.skedvisit s where s.visitdate = ${visitdate} order by visittime`);
     // Return rows in JSON format
     res.json(result.rows);
   } catch (err) {
@@ -31,5 +39,6 @@ router.post('/saveskedvisit', checkApiKey, async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 module.exports = router;
